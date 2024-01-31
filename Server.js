@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const Schemas = require("./Schemas/Schemas");
 
 const dbUsername = process.env.dbUSERNAME;
 const dbPassword = process.env.dbPASSWORD;
@@ -14,6 +15,40 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+
+// Creating Models
+
+const UserModel = mongoose.model("User", Schemas.UserSchema);
+
+// API Endpoints
+app.post("/signup", async (req, res) => {
+  try {
+    console.log("Creating New User...");
+    const userID = ""; // Need to be randomly and uniquely generated
+    const wiringCode = ""; // Need to be randomly and uniquely generated
+    const accountNumber = ""; // Need to be randomly and uniquely generated
+    const balanceID = ""; // Need to be randomly and uniquely generated
+    const userData = {
+      ...req.body,
+      accountNumber: accountNumber,
+      userID: userID,
+      wiringCode: wiringCode,
+      balance: {
+        balanceID: balanceID,
+        type: "Bronze",
+        amount: 1000,
+        ownerUserID: userID,
+      },
+    };
+    const newUser = new UserModel(userData);
+    await newUser.save();
+    console.log(newUser);
+    res.status(200).json({ msg: "User Created Successfully" });
+  } catch (error) {
+    console.error("Error getting count:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 // connect to the db
 mongoose
