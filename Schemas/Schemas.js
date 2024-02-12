@@ -24,11 +24,11 @@ const UserSchema = new mongoose.Schema({
   lastName: { type: String, default: "N/A" },
   fullName: { type: String, default: "N/A" },
   accountNumber: { type: String, default: "0000000000" },
-  userID: { type: String, default: "N/A" },
   wiringCode: { type: String, default: "N/A" },
   password: { type: String, default: "N/A" },
   email: { type: String, default: "N/A" },
   referredByCode: { type: String, default: "N/A" },
+  referralCode: { type: String, default: "N/A" },
   transactions: [TransactionSchema],
   balance: [BalanceSchema],
 });

@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const bcrypt = require("bcrypt");
 const Schemas = require("./Schemas/Schemas");
 
 const dbUsername = process.env.dbUSERNAME;
@@ -24,20 +25,28 @@ const UserModel = mongoose.model("User", Schemas.UserSchema);
 app.post("/signup", async (req, res) => {
   try {
     console.log("Creating New User...");
-    const userID = ""; // Need to be randomly and uniquely generated
-    const wiringCode = ""; // Need to be randomly and uniquely generated
-    const accountNumber = ""; // Need to be randomly and uniquely generated
-    const balanceID = ""; // Need to be randomly and uniquely generated
+    const accountNumber = "0000000000"; // Need to be randomly and uniquely generated
+    const wiringCode = `W${accountNumber}`; // wiringCode = 'W' for 'Referral' as Prefix to account number
+    const balanceID = `B${accountNumber}`; // balanceID = 'B' for 'Referral' as Prefix to account number
+    const referralCode = `R${accountNumber}`; // referralCode = 'R' for 'Referral' as Prefix to account number
+    const salt = await bcrypt.genSalt(5);
+    const hashed = await bcrypt.hash(req.body.password, salt);
+    console.log(req.body);
+
     const userData = {
-      ...req.body,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      fullName: req.body.fullName,
+      password: hashed, // hash
+      email: req.body.email,
+      referredByCode: req.body.referredByCode,
+      referralCode: referralCode,
       accountNumber: accountNumber,
-      userID: userID,
       wiringCode: wiringCode,
       balance: {
         balanceID: balanceID,
         type: "Bronze",
         amount: 1000,
-        ownerUserID: userID,
       },
     };
     const newUser = new UserModel(userData);
