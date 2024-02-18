@@ -4,9 +4,14 @@ const bcrypt = require("bcrypt");
 async function signUp(req, res, UserModel) {
   try {
     console.log("Creating New User...");
+
+    // Generate a random account number
     const accountNumber = serverFunctions.generateAccountNumber();
+
+    // Hash Password using bcrypt
     const salt = await bcrypt.genSalt(5);
     const hashed = await bcrypt.hash(req.body.password, salt);
+
     console.log(req.body);
 
     const userData = {

@@ -22,6 +22,10 @@ app.use(express.json());
 
 // Creating Models
 const UserModel = mongoose.model("User", Schemas.UserSchema);
+const TransactionModel = mongoose.model(
+  "Transaction",
+  Schemas.TransactionSchema
+);
 
 // API Endpoints
 app.post("/signup", async (req, res) =>
