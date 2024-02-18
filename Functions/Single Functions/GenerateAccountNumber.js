@@ -14,8 +14,4 @@ function generateAccountNumber() {
   return letter1 + letter2 + number;
 }
 
-const serverFunctions = {
-  generateAccountNumber,
-};
-
-module.exports = serverFunctions;
+module.exports = generateAccountNumber;

@@ -1,4 +1,4 @@
-const signUp = require("./Functions/Signup");
+const signUp = require("./Single Routes/Signup");
 
 const routeFunctions = {
   signUp,

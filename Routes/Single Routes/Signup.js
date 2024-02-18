@@ -1,4 +1,4 @@
-const serverFunctions = require("../../ServerFunctions");
+const serverFunctions = require("../../Functions/ServerFunctions");
 const bcrypt = require("bcrypt");
 
 async function signUp(req, res, UserModel) {
