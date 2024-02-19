@@ -1,5 +1,6 @@
 const generateAccountNumber = require("./Single Functions/GenerateAccountNumber");
 
+// Functions Grouper
 const serverFunctions = {
   generateAccountNumber,
 };
