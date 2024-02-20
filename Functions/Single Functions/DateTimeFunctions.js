@@ -1,5 +1,6 @@
 const Months = require("../../Constants/Months");
 
+// Gets A New ISO String Date and Splits it into Date and Time
 function getDateAndTime() {
   const dateTime = new Date().toISOString();
   const splittedDateTime = dateTime.split("T");
@@ -9,6 +10,7 @@ function getDateAndTime() {
   return { date, time };
 }
 
+// Modifies Date from '2024-01-01' --> '01 Jan 2024'
 function getModifiedDate(date) {
   const splitDate = date.split("-");
 
@@ -20,10 +22,12 @@ function getModifiedDate(date) {
   return fullDate;
 }
 
+// Modifies time from '19:30:1000z' --> '19:30'
 function getModifiedTime(time) {
   return time.slice(0, 5);
 }
 
+// Extracts Day, Month, last two digits from Year, hour, minutes for a TimeCode for Transaction Codes
 function getTransactionDateTime(date, time) {
   const splitDate = date.split("-");
   const splitTime = time.split(":");

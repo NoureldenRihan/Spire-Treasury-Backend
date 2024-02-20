@@ -13,6 +13,7 @@ const dbName = process.env.dbNAME;
 // Database Connection URI
 const uri = `mongodb://${dbUsername}:${dbPassword}@ac-n7xmp9d-shard-00-00.agdw1t4.mongodb.net:27017,ac-n7xmp9d-shard-00-01.agdw1t4.mongodb.net:27017,ac-n7xmp9d-shard-00-02.agdw1t4.mongodb.net:27017/${dbName}?ssl=true&replicaSet=atlas-8ikuez-shard-0&authSource=admin&retryWrites=true&w=majority`;
 
+// Initializing App and Port
 const app = express();
 const PORT = process.env.PORT || 5000;
 

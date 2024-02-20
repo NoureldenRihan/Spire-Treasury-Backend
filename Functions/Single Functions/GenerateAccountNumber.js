@@ -11,7 +11,7 @@ function generateAccountNumber() {
     number += digits[Math.floor(Math.random() * digits.length)];
   }
 
-  return letter1 + letter2 + number;
+  return `${letter1}${letter2}${number}`;
 }
 
 module.exports = generateAccountNumber;

@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 const Schemas = require("./Schemas");
 
-// Creating Models
+// Database Models
 const UserModel = mongoose.model("User", Schemas.UserSchema);
+
 const TransactionModel = mongoose.model(
   "Transaction",
   Schemas.TransactionSchema
 );
+
 const EmailModel = mongoose.model("Email", Schemas.EmailSchema);
+
 const AccountNumberModel = mongoose.model(
   "AccountNumber",
   Schemas.AccountNumberSchema
