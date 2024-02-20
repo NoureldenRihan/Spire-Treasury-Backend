@@ -2,8 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const Schemas = require("./Schemas/Schemas");
 const routeFunctions = require("./Routes/RoutesFunctions");
+const Models = require("./Schemas/Models");
 
 // Importing env Values
 const dbUsername = process.env.dbUSERNAME;
@@ -20,16 +20,9 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Creating Models
-const UserModel = mongoose.model("User", Schemas.UserSchema);
-const TransactionModel = mongoose.model(
-  "Transaction",
-  Schemas.TransactionSchema
-);
-
 // API Endpoints
 app.post("/signup", async (req, res) =>
-  routeFunctions.signUp(req, res, UserModel)
+  routeFunctions.signUp(req, res, Models)
 );
 
 // Database Connection

@@ -1,7 +1,7 @@
 const serverFunctions = require("../../Functions/ServerFunctions");
 const bcrypt = require("bcrypt");
 
-async function signUp(req, res, UserModel) {
+async function signUp(req, res, dbModels) {
   try {
     console.log("Creating New User...");
 
@@ -28,7 +28,7 @@ async function signUp(req, res, UserModel) {
       },
     };
 
-    const newUser = new UserModel(userData);
+    const newUser = new dbModels.UserModel(userData);
     await newUser.save();
     console.log(newUser);
     res.status(200).json({ msg: "User Created Successfully" });
