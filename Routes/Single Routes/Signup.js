@@ -54,9 +54,6 @@ async function signUp(req, res, dbModels) {
       transactions: transactionData,
     };
 
-    const newEmail = new dbModels.EmailModel({ email: userData.email });
-    await newEmail.save();
-
     const newAccountNumber = new dbModels.AccountNumberModel({
       accountNumber: userData.accountNumber,
     });
@@ -68,8 +65,6 @@ async function signUp(req, res, dbModels) {
     const newUser = new dbModels.UserModel(userData);
     await newUser.save();
 
-    console.log(newEmail);
-    console.log(`Email ^^^^^^^^^^^^^^^^^^^^^^^^^`);
     console.log(newAccountNumber);
     console.log(`Account Number ^^^^^^^^^^^^^^^^^^^^^^^^^`);
     console.log(newTransaction);

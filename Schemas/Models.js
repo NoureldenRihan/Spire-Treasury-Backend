@@ -9,8 +9,6 @@ const TransactionModel = mongoose.model(
   Schemas.TransactionSchema
 );
 
-const EmailModel = mongoose.model("Email", Schemas.EmailSchema);
-
 const AccountNumberModel = mongoose.model(
   "AccountNumber",
   Schemas.AccountNumberSchema
@@ -19,7 +17,6 @@ const AccountNumberModel = mongoose.model(
 // Models Grouper
 const Models = {
   UserModel,
-  EmailModel,
   AccountNumberModel,
   TransactionModel,
 };
