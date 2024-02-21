@@ -2,8 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const routeFunctions = require("./Routes/RoutesFunctions");
-const Models = require("./Schemas/Models");
+const Routes = require("./Routes/Routes");
 
 // Importing env Values
 const dbUsername = process.env.dbUSERNAME;
@@ -21,10 +20,8 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// API Endpoints
-app.post("/signup", async (req, res) =>
-  routeFunctions.signUp(req, res, Models)
-);
+// Routes
+app.use("/signup", Routes.signUp);
 
 // Database Connection
 mongoose

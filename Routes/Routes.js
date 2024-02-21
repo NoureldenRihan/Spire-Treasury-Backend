@@ -1,8 +1,8 @@
 const signUp = require("./Single Routes/Signup");
 
 // Route Funtions Grouper
-const routeFunctions = {
+const Routes = {
   signUp,
 };
 
-module.exports = routeFunctions;
+module.exports = Routes;
