@@ -10,19 +10,34 @@ const mongoose = require("mongoose");
 // 00: Hour Time of Transaction
 // 00: Minute Time of Transaction
 
-const TransactionSchema = new mongoose.Schema({
-  code: { type: String, default: "AABB0101240000" }, // ^^
-  date: { type: String, default: "0000-00-00" },
-  time: { type: String, default: "00:00:00" },
-  type: { type: String, default: "N/A" },
-  statusCode: { type: Number, default: 0 },
-  total: { type: Number, default: 0 },
-  amount: { type: Number, default: 0 },
-  fees: { type: Number, default: 0 },
-  fromAccNum: { type: String, default: "N/A" },
-  toAccNum: { type: String, default: "N/A" },
-  fromBalanceID: { type: String, default: "N/A" },
-  toBalanceID: { type: String, default: "N/A" },
-});
+const TransactionSchema = new mongoose.Schema(
+  {
+    code: { type: String, default: "AABB0101240000" }, // ^^
+    date: { type: String, default: "0000-00-00" },
+    time: { type: String, default: "00:00:00" },
+    type: {
+      type: String,
+      default: "N/A",
+      required: [true, "Please Specify Type of Transaction"],
+    },
+    statusCode: { type: Number, default: 0 },
+    total: { type: Number, default: 0 },
+    amount: {
+      type: Number,
+      default: 0,
+      required: [true, "Please Provide the Amount to be Transacted"],
+    },
+    fees: { type: Number, default: 0 },
+    fromAccNum: { type: String, default: "N/A" },
+    toAccNum: {
+      type: String,
+      default: "N/A",
+      required: [true, "Please Provide the Account Number to Transact to"],
+    },
+    fromBalanceID: { type: String, default: "N/A" },
+    toBalanceID: { type: String, default: "N/A" },
+  },
+  { timestamps: true }
+);
 
 module.exports = TransactionSchema;

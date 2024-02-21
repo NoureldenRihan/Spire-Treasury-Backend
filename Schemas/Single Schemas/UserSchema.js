@@ -2,15 +2,44 @@ const mongoose = require("mongoose");
 const TransactionSchema = require("./TransactionSchema");
 const BalanceSchema = require("./BalanceSchema");
 
-const UserSchema = new mongoose.Schema({
-  firstName: { type: String, default: "N/A" },
-  lastName: { type: String, default: "N/A" },
-  fullName: { type: String, default: "N/A" },
-  accountNumber: { type: String, unique: true, default: "AA000000" },
-  password: { type: String, default: "N/A" },
-  email: { type: String, unique: true, default: "N/A" },
-  transactions: [TransactionSchema],
-  balance: [BalanceSchema],
-});
+const UserSchema = new mongoose.Schema(
+  {
+    firstName: {
+      type: String,
+      default: "N/A",
+      required: [true, "Please Provide your First Name"],
+    },
+    lastName: {
+      type: String,
+      default: "N/A",
+      required: [true, "Please Provide your Last Name"],
+    },
+    fullName: {
+      type: String,
+      default: "N/A",
+      required: [true, "Please Provide your Full Name"],
+    },
+    accountNumber: {
+      type: String,
+      unique: true,
+      default: "AA000000",
+      required: [true, "Account Number is Missing"],
+    },
+    password: {
+      type: String,
+      default: "N/A",
+      required: [true, "Please Enter a Password"],
+    },
+    email: {
+      type: String,
+      unique: true,
+      default: "N/A",
+      required: [true, "Please Enter an Email"],
+    },
+    transactions: [TransactionSchema],
+    balance: [BalanceSchema],
+  },
+  { timestamps: true }
+);
 
 module.exports = UserSchema;
