@@ -13,7 +13,22 @@ const createUser = async (req, res) => {
     console.log("Creating New User...");
 
     // Generate a random account number
-    const accountNumber = serverFunctions.generateAccountNumber();
+    let trials = 0;
+    let AccNumExists = true;
+    let accountNumber;
+
+    // Loops (At Max 3 Times) to generate a unique account number non existing in Account Number Collection
+    // Otherwise, Loop Exits and Throws A Timout Error
+    while (AccNumExists) {
+      trials += 1;
+      accountNumber = serverFunctions.generateAccountNumber();
+      AccNumExists = await serverFunctions.AccountNumberDuplicateChecker(
+        accountNumber
+      );
+      if (trials >= 3) {
+        throw new Error("Account Number Loop Timeout");
+      }
+    }
 
     // Hash Password using bcrypt
     const salt = await bcrypt.genSalt(5);

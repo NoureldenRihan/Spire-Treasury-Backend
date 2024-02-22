@@ -1,4 +1,6 @@
 function generateAccountNumber() {
+  console.log("Generating account number");
+
   // Generate two random uppercase letters
   const letters = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
   const letter1 = letters[Math.floor(Math.random() * letters.length)];
