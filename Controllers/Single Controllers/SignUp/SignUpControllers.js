@@ -1,6 +1,6 @@
 const createUser = require("./Controllers/CreateUser");
 
-// Controllers Grouper
+// Sign Up Controllers Grouper
 const SignUpControllers = {
   createUser,
 };

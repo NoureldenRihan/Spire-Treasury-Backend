@@ -23,6 +23,8 @@ app.use(express.json());
 // Routes
 app.use("/signup", Routes.signUp);
 
+app.use("/transactions", Routes.transactions);
+
 // Database Connection
 mongoose
   .connect(uri)
