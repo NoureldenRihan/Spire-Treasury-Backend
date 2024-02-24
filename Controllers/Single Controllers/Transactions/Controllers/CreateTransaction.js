@@ -48,18 +48,20 @@ const createTransaction = async (req, res) => {
       toBalanceID: req.body.toBalanceID,
     };
 
-    const isTransactionValid =
-      serverFunctions.TransactionValidation(transactionData);
+    console.log("Proceeding to Pre Validate Transaction...");
+
+    const isTransactionValid = await serverFunctions.TransactionPreValidation(
+      transactionData
+    );
 
     if (isTransactionValid) {
       const newTransaction = new Models.TransactionModel(transactionData);
       await newTransaction.save();
+      console.log(newTransaction);
+      console.log(`Transaction ^^^^^^^^^^^^^^^^^^^^^^^^^`);
     } else {
       throw new Error("Invalid transaction");
     }
-
-    console.log(newTransaction);
-    console.log(`Transaction ^^^^^^^^^^^^^^^^^^^^^^^^^`);
 
     res.status(200).json({ msg: "Successful Transaction" });
   } catch (error) {
