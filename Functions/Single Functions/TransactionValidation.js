@@ -3,7 +3,7 @@ const Models = require("../../Schemas/Models");
 const TransactionFeePercentage = require("../../Constants/TransactionFeePercentage");
 
 const STAccNum = process.env.STAccNum;
-const STBalanceID = process.env.STBalanceID;
+const STBronzeBalanceID = process.env.STBronzeBalanceID;
 
 // Validation Objectives
 // 1) Checks that the Transaction Amount is Greater than 0
@@ -111,7 +111,7 @@ async function TransactionValidation(transactionData) {
 
     if (transactionData.type === "NU") {
       if (transactionData.fromAccNum === STAccNum) {
-        if (transactionData.fromBalanceID === STBalanceID) {
+        if (transactionData.fromBalanceID === STBronzeBalanceID) {
           console.log(`New User Transaction`);
         } else {
           console.log(

@@ -30,6 +30,8 @@ const createUser = async (req, res) => {
 
     console.log(req.body);
 
+    const userType = serverFunctions.UserTypeAssigner(req.body.specialCode);
+
     const userData = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -37,6 +39,7 @@ const createUser = async (req, res) => {
       password: hashed,
       email: req.body.email,
       accountNumber: accountNumber,
+      type: userType,
       balance: {
         balanceID: `BB${accountNumber}`,
         type: "Bronze",

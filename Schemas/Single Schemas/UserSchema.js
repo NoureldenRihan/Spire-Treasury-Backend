@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema(
       default: "AA000000",
       required: [true, "Account Number is Missing"],
     },
+    type: {
+      type: String,
+      default: "Normal",
+    },
     password: {
       type: String,
       default: "N/A",

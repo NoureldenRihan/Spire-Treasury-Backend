@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 // ^^ Transaction Schema Code Guide
 // Example: AABB0101240000 -- (AA/BB/01/01/24/00/00)
-// AA: first two letters of fromAccNum
-// BB: first two letters of toAccNum
+// AA: first two letters of fromAccNum (Value is "FF" in case of a Fee Transaction)
+// BB: first two letters of toAccNum (Value is "FF" in case of a Fee Transaction)
 // 01: Day of Transaction
 // 01: Month of Transaction
 // 24: last two digits of Year of Transaction
@@ -36,6 +36,7 @@ const TransactionSchema = new mongoose.Schema(
     },
     fromBalanceID: { type: String, default: "N/A" },
     toBalanceID: { type: String, default: "N/A" },
+    tier: { type: String, default: "N/A" },
   },
   { timestamps: true }
 );

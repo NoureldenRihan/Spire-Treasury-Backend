@@ -5,11 +5,15 @@ const serverFunctions = require("../../../../Functions/ServerFunctions");
 const Models = require("../../../../Schemas/Models");
 
 const STAccNum = process.env.STAccNum;
-const STBalanceID = process.env.STBalanceID;
+const STBronzeBalanceID = process.env.STBronzeBalanceID;
+const STSilverBalanceID = process.env.STSilverBalanceID;
+const STGoldBalanceID = process.env.STGoldBalanceID;
 
 const createTransaction = async (req, res) => {
   try {
     console.log("Making Transaction...");
+
+    let feeTransactionData;
 
     // Get Date and Time Info
     const dateTime = serverFunctions.DateTimeFunctions.getDateAndTime();
@@ -20,6 +24,9 @@ const createTransaction = async (req, res) => {
       );
 
     const { transactionType } = req.body;
+    const transactionTier = serverFunctions.TransactionTierClassifier(
+      req.body.toBalanceID.slice(0, 2)
+    );
 
     console.log(req.body);
 
@@ -44,8 +51,9 @@ const createTransaction = async (req, res) => {
       fromAccNum: transactionType === "NU" ? STAccNum : req.body.fromAccNum,
       toAccNum: req.body.toAccNum,
       fromBalanceID:
-        transactionType === "NU" ? STBalanceID : req.body.fromBalanceID,
+        transactionType === "NU" ? STBronzeBalanceID : req.body.fromBalanceID,
       toBalanceID: req.body.toBalanceID,
+      tier: transactionTier,
     };
 
     console.log("Proceeding to Validate Transaction...");
@@ -128,6 +136,90 @@ const createTransaction = async (req, res) => {
           .then(() => console.log("Transaction Updated successfully"))
           .catch((err) => console.error("Error Updating transaction:", err));
       });
+
+      if (transactionType !== "NU") {
+        await Models.UserModel.find({
+          type: "SPIRE",
+        }).then((user) => {
+          let currentUser = user[0];
+          let currentAmount;
+          let spireBalanceID;
+
+          switch (transactionTier) {
+            case "Bronze":
+              spireBalanceID = STBronzeBalanceID;
+              break;
+            case "Silver":
+              spireBalanceID = STSilverBalanceID;
+              break;
+            case "Gold":
+              spireBalanceID = STGoldBalanceID;
+              break;
+            default:
+              spireBalanceID = undefined;
+              break;
+          }
+
+          if (spireBalanceID !== undefined) {
+            currentUser.balance.forEach((balance) => {
+              if (balance.balanceID === spireBalanceID) {
+                currentAmount = balance.amount;
+                balance.amount += transactionData.fees;
+                if (currentAmount + transactionData.fees !== balance.amount) {
+                  throw new Error("Error Applying Transaction");
+                }
+              }
+            });
+          }
+
+          const newDateTime =
+            serverFunctions.DateTimeFunctions.getDateAndTime();
+          const newTransactionTimeCode =
+            serverFunctions.DateTimeFunctions.getTransactionDateTime(
+              dateTime.date,
+              dateTime.time
+            );
+
+          feeTransactionData = {
+            code: `FFFF${newTransactionTimeCode}`,
+            date: newDateTime.date,
+            time: newDateTime.time,
+            type: TransactionTypes.FEE,
+            statusCode: TransactionStatusCodes.SUCCESS,
+            total: transactionData.fees,
+            amount: transactionData.fees,
+            fees: 0,
+            fromAccNum: req.body.fromAccNum,
+            toAccNum: req.body.toAccNum,
+            fromBalanceID: req.body.fromBalanceID,
+            toBalanceID: req.body.toBalanceID,
+            tier: transactionTier,
+          };
+
+          currentUser.transactions.unshift(feeTransactionData);
+
+          currentUser
+            .save()
+            .then(() => console.log("Transaction Received successfully"))
+            .catch((err) => console.error("Error saving transaction:", err));
+
+          const feeTransaction = new Models.TransactionModel(
+            feeTransactionData
+          );
+
+          feeTransaction
+            .save()
+            .then(() => console.log("Fee Transaction Received successfully"))
+            .catch((err) =>
+              console.error("Error saving fee transaction:", err)
+            );
+
+          console.log(feeTransaction);
+          console.log(`Transaction ^^^^^^^^^^^^^^^^^^^^^^^^^`);
+
+          console.log(user);
+        });
+      }
     } else {
       throw new Error("Invalid transaction");
     }
