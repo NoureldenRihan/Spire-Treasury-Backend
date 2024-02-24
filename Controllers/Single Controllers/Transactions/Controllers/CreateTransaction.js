@@ -37,7 +37,7 @@ const createTransaction = async (req, res) => {
         transactionType === "NU"
           ? TransactionTypes.NEW_USER
           : TransactionTypes.WIRE,
-      statusCode: TransactionStatusCodes.PENDING, // Needs to be updated upon transaction confirmation
+      statusCode: TransactionStatusCodes.PENDING,
       total: req.body.total,
       amount: req.body.amount,
       fees: req.body.fees,
@@ -48,17 +48,86 @@ const createTransaction = async (req, res) => {
       toBalanceID: req.body.toBalanceID,
     };
 
-    console.log("Proceeding to Pre Validate Transaction...");
+    console.log("Proceeding to Validate Transaction...");
 
-    const isTransactionValid = await serverFunctions.TransactionPreValidation(
+    const isTransactionValid = await serverFunctions.TransactionValidation(
       transactionData
     );
 
     if (isTransactionValid) {
       const newTransaction = new Models.TransactionModel(transactionData);
       await newTransaction.save();
+
       console.log(newTransaction);
       console.log(`Transaction ^^^^^^^^^^^^^^^^^^^^^^^^^`);
+
+      await Models.UserModel.find({
+        accountNumber: transactionData.fromAccNum,
+      }).then((user) => {
+        let currentUser = user[0];
+        let currentAmount;
+
+        currentUser.balance.forEach((balance) => {
+          if (balance.balanceID === transactionData.fromBalanceID) {
+            currentAmount = balance.amount;
+            balance.amount -= transactionData.total;
+            if (currentAmount - transactionData.total !== balance.amount) {
+              throw new Error("Error Applying Transaction");
+            }
+          }
+        });
+
+        let SuccessfulTransaction = transactionData;
+        SuccessfulTransaction.statusCode = TransactionStatusCodes.SUCCESS;
+
+        currentUser.transactions.unshift(SuccessfulTransaction);
+
+        currentUser
+          .save()
+          .then(() => console.log("Transaction Paid successfully"))
+          .catch((err) => console.error("Error saving transaction:", err));
+
+        console.log(user);
+      });
+
+      await Models.UserModel.find({
+        accountNumber: transactionData.toAccNum,
+      }).then((user) => {
+        let currentUser = user[0];
+        let currentAmount;
+
+        currentUser.balance.forEach((balance) => {
+          if (balance.balanceID === transactionData.toBalanceID) {
+            currentAmount = balance.amount;
+            balance.amount += transactionData.total;
+            if (currentAmount + transactionData.total !== balance.amount) {
+              throw new Error("Error Applying Transaction");
+            }
+          }
+        });
+
+        let SuccessfulTransaction = transactionData;
+        SuccessfulTransaction.statusCode = TransactionStatusCodes.SUCCESS;
+
+        currentUser.transactions.unshift(SuccessfulTransaction);
+
+        currentUser
+          .save()
+          .then(() => console.log("Transaction Received successfully"))
+          .catch((err) => console.error("Error saving transaction:", err));
+
+        console.log(user);
+      });
+
+      await Models.TransactionModel.findOne({
+        code: transactionData.code,
+      }).then((transaction) => {
+        transaction.statusCode = TransactionStatusCodes.SUCCESS;
+        transaction
+          .save()
+          .then(() => console.log("Transaction Updated successfully"))
+          .catch((err) => console.error("Error Updating transaction:", err));
+      });
     } else {
       throw new Error("Invalid transaction");
     }
