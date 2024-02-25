@@ -7,7 +7,7 @@ const STBronzeBalanceID = process.env.STBronzeBalanceID;
 
 // Validation Objectives
 // 1) Checks that the Transaction Amount is Greater than 0
-// 2) Checks that Users with the chosen account Numbers Exists
+// 2) Checks that User with the chosen account Numbers Exists
 // 3) Checks that Account Numbers and Balance IDs are for same account
 // 4) Checks that Both Accounts Use are on same tier
 // 5) Checks that the Paying User Has enough Funds

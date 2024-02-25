@@ -24,7 +24,7 @@ const createTransaction = async (req, res) => {
       );
 
     const { transactionType } = req.body;
-    const transactionTier = serverFunctions.TransactionTierClassifier(
+    const transactionTier = serverFunctions.TierClassifier(
       req.body.toBalanceID.slice(0, 2)
     );
 

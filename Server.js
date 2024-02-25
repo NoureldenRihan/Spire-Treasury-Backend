@@ -25,6 +25,8 @@ app.use("/signup", Routes.signUp);
 
 app.use("/transactions", Routes.transactions);
 
+app.use("/balances", Routes.balances);
+
 // Database Connection
 mongoose
   .connect(uri)
