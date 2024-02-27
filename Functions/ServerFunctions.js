@@ -5,6 +5,7 @@ const TransactionValidation = require("./Single Functions/TransactionValidation"
 const UserTypeAssigner = require("./Single Functions/UserTypeAssigner");
 const TierClassifier = require("./Single Functions/TierClassifier");
 const BalanceValidation = require("./Single Functions/BalanceValidation");
+const CurrencyConverionValidation = require("./Single Functions/CurrencyConverionValidation");
 
 // Functions Grouper
 const serverFunctions = {
@@ -15,6 +16,7 @@ const serverFunctions = {
   UserTypeAssigner,
   TierClassifier,
   BalanceValidation,
+  CurrencyConverionValidation,
 };
 
 module.exports = serverFunctions;

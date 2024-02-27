@@ -1,8 +1,8 @@
 const createTransaction = require("./Controllers/CreateTransaction");
 
 // Transactions Controllers Grouper
-const TransactionsControllers = {
+const TransactionControllers = {
   createTransaction,
 };
 
-module.exports = TransactionsControllers;
+module.exports = TransactionControllers;

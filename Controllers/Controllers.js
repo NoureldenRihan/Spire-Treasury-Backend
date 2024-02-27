@@ -1,12 +1,14 @@
 const SignUpControllers = require("./Single Controllers/SignUp/SignUpControllers");
-const TransactionsControllers = require("./Single Controllers/Transactions/TransactionsControllers");
+const TransactionControllers = require("./Single Controllers/Transactions/TransactionControllers");
 const BalanceControllers = require("./Single Controllers/Balances/BalanceControllers");
+const ConversionControllers = require("./Single Controllers/Conversions/ConversionControllers");
 
 // Controllers Grouper
 const Controllers = {
   SignUpControllers,
-  TransactionsControllers,
+  TransactionControllers,
   BalanceControllers,
+  ConversionControllers,
 };
 
 module.exports = Controllers;

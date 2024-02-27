@@ -27,6 +27,8 @@ app.use("/transactions", Routes.transactions);
 
 app.use("/balances", Routes.balances);
 
+app.use("/conversions", Routes.conversions);
+
 // Database Connection
 mongoose
   .connect(uri)

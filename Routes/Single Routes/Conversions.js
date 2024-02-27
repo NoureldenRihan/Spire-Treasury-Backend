@@ -3,6 +3,6 @@ const router = express.Router();
 
 const Controllers = require("../../Controllers/Controllers");
 
-router.post("/", Controllers.TransactionControllers.createTransaction);
+router.post("/", Controllers.ConversionControllers.ConvertCurreny);
 
 module.exports = router;
