@@ -2,15 +2,24 @@ const bcrypt = require("bcrypt");
 const serverFunctions = require("../../../../Functions/ServerFunctions");
 const Models = require("../../../../Schemas/Models");
 
+// User Creation Objectives
+// 1) Organize Data
+// 2) Validate Account Number
+// 3) Generate a Password Hash
+// 4) Create User and Save Account Number
+
 const createUser = async (req, res) => {
   try {
     console.log("Creating New User...");
+
+    // 1) Organize Data
 
     // Generate a random account number
     let trials = 0;
     let AccNumExists = true;
     let accountNumber;
 
+    // 2) Validate Account Number
     // Loops (At Max 3 Times) to generate a unique account number non existing in Account Number Collection
     // Otherwise, Loop Exits and Throws A Timout Error
     while (AccNumExists) {
@@ -20,17 +29,18 @@ const createUser = async (req, res) => {
         accountNumber
       );
       if (trials >= 3) {
-        throw new Error("Account Number Loop Timeout");
+        throw new Error("Account Number Duplicate Check Loop Timeout");
       }
     }
 
+    // 3) Generate a Password Hash
     // Hash Password using bcrypt
     const salt = await bcrypt.genSalt(5);
     const hashed = await bcrypt.hash(req.body.password, salt);
 
     console.log(req.body);
 
-    const userType = serverFunctions.UserTypeAssigner(req.body.specialCode);
+    const userType = serverFunctions.UserTypeClassifier(req.body.specialCode);
 
     const userData = {
       firstName: req.body.firstName,
@@ -40,12 +50,9 @@ const createUser = async (req, res) => {
       email: req.body.email,
       accountNumber: accountNumber,
       type: userType,
-      balance: {
-        balanceID: `BB${accountNumber}`,
-        type: "Bronze",
-        amount: 1000,
-      },
     };
+
+    // 4) Create User and Save Account Number
 
     const newAccountNumber = new Models.AccountNumberModel({
       accountNumber: userData.accountNumber,

@@ -50,7 +50,7 @@ async function BalanceValidation(balanceData) {
       return false;
     }
 
-    // 4) Checks that the Balance Amount is Greater than or Equal to 0
+    // 4) Checks that the Balance Amount is not Less than 0
 
     if (balanceData.amount < 0) {
       console.log(`Balance Amount is in Negative`);

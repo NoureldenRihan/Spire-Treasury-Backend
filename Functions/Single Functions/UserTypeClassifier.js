@@ -1,6 +1,8 @@
 const AdminSpecialCodes = require("../../Constants/AdminSpecialCodes");
 
-function UserTypeAssigner(code) {
+// Based on Admin Special Codes, Classifies the User Type
+
+function UserTypeClassifier(code) {
   if (AdminSpecialCodes[code] === undefined) {
     return "Normal";
   } else {
@@ -8,4 +10,4 @@ function UserTypeAssigner(code) {
   }
 }
 
-module.exports = UserTypeAssigner;
+module.exports = UserTypeClassifier;

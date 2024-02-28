@@ -9,9 +9,16 @@ const STBronzeBalanceID = process.env.STBronzeBalanceID;
 const STSilverBalanceID = process.env.STSilverBalanceID;
 const STGoldBalanceID = process.env.STGoldBalanceID;
 
+// Transaction Creation Objectives
+// 1) Organize Data
+// 2) Validate Transaction
+// 3) Create Transaction and Update User
+
 const createTransaction = async (req, res) => {
   try {
     console.log("Making Transaction...");
+
+    // 1) Organize Data
 
     let feeTransactionData;
 
@@ -55,6 +62,8 @@ const createTransaction = async (req, res) => {
       toBalanceID: req.body.toBalanceID,
       tier: transactionTier,
     };
+
+    // 2) Validate Transaction
 
     console.log("Proceeding to Validate Transaction...");
 

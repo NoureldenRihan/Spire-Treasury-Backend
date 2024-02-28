@@ -1,6 +1,6 @@
 const Models = require("../../Schemas/Models");
 
-// Checks if the newly generated Account Number Exists in the Account Number Collection
+// Checks if the newly generated Account Number Exists in the Account Numbers Collection
 async function AccountNumberDuplicateChecker(AccNum) {
   try {
     const user = await Models.UserModel.findOne({ accountNumber: AccNum });

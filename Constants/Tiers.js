@@ -1,9 +1,14 @@
 const Tiers = {
+  // Bronze Accounts
   BB: "Bronze",
-  BS: "Silver",
-  BG: "Gold",
   Bronze: "B",
+
+  // Silver Accounts
+  BS: "Silver",
   Silver: "S",
+
+  // Gold Accounts
+  BG: "Gold",
   Gold: "G",
 };
 

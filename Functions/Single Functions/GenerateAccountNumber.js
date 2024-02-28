@@ -1,3 +1,5 @@
+// Generates a Random Account Number of 2 Letters and 6 Digits
+
 function generateAccountNumber() {
   console.log("Generating account number");
 

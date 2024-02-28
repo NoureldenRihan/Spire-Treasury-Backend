@@ -2,7 +2,7 @@ const generateAccountNumber = require("./Single Functions/GenerateAccountNumber"
 const DateTimeFunctions = require("./Single Functions/DateTimeFunctions");
 const AccountNumberDuplicateChecker = require("./Single Functions/AccountNumberDuplicateChecker");
 const TransactionValidation = require("./Single Functions/TransactionValidation");
-const UserTypeAssigner = require("./Single Functions/UserTypeAssigner");
+const UserTypeClassifier = require("./Single Functions/UserTypeClassifier");
 const TierClassifier = require("./Single Functions/TierClassifier");
 const BalanceValidation = require("./Single Functions/BalanceValidation");
 const CurrencyConverionValidation = require("./Single Functions/CurrencyConverionValidation");
@@ -13,7 +13,7 @@ const serverFunctions = {
   DateTimeFunctions,
   AccountNumberDuplicateChecker,
   TransactionValidation,
-  UserTypeAssigner,
+  UserTypeClassifier,
   TierClassifier,
   BalanceValidation,
   CurrencyConverionValidation,
