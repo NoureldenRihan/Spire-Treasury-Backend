@@ -64,7 +64,7 @@ async function TransactionValidation(transactionData) {
       return false;
     }
 
-    // 4) Checks that Both Accounts Use are on same tier
+    // 4) Checks that Both Accounts Use are on same tier :D
 
     if (
       transactionData.fromBalanceID.slice(0, 2) !==
