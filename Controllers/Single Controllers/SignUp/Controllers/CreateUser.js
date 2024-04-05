@@ -1,12 +1,10 @@
-const bcrypt = require("bcrypt");
 const serverFunctions = require("../../../../Functions/ServerFunctions");
 const Models = require("../../../../Schemas/Models");
 
 // User Creation Objectives
 // 1) Organize Data
 // 2) Validate Account Number
-// 3) Generate a Password Hash
-// 4) Create User and Save Account Number
+// 3) Create User and Save Account Number
 
 const createUser = async (req, res) => {
   try {
@@ -33,11 +31,6 @@ const createUser = async (req, res) => {
       }
     }
 
-    // 3) Generate a Password Hash
-    // Hash Password using bcrypt
-    const salt = await bcrypt.genSalt(5);
-    const hashed = await bcrypt.hash(req.body.password, salt);
-
     console.log(req.body);
 
     const userType = serverFunctions.UserTypeClassifier(req.body.specialCode);
@@ -46,13 +39,13 @@ const createUser = async (req, res) => {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       fullName: req.body.fullName,
-      password: hashed,
+      password: req.body.password,
       email: req.body.email,
       accountNumber: accountNumber,
       type: userType,
     };
 
-    // 4) Create User and Save Account Number
+    // 3) Create User and Save Account Number
 
     const newAccountNumber = new Models.AccountNumberModel({
       accountNumber: userData.accountNumber,

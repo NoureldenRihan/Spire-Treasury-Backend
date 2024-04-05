@@ -23,6 +23,8 @@ app.use(express.json());
 // Routes
 app.use("/signup", Routes.signUp);
 
+app.use("/login", Routes.login);
+
 app.use("/transactions", Routes.transactions);
 
 app.use("/balances", Routes.balances);
