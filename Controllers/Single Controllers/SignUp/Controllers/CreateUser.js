@@ -62,10 +62,13 @@ const createUser = async (req, res) => {
     res.status(200).json({ msg: "User Created Successfully" });
   } catch (error) {
     console.error("Error Creating User:", error);
-    const err = serverFunctions.ErrorClassifier({
-      errorCode: error.code,
-      errorInfo: error.keyPattern,
-    });
+    const err = serverFunctions.ErrorClassifier(
+      {
+        errorCode: error.code,
+        errorInfo: error.keyPattern,
+      },
+      true
+    );
     res.status(500).json({ didAnErrorOccur: true, msg: err });
   }
 };

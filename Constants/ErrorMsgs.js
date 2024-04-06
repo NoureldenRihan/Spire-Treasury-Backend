@@ -4,6 +4,7 @@ const ErrorMsgs = {
   AccountNumberDuplicate:
     "Error Generating an Account Number, Try Again Later!",
   UserNotFound: "User Not Found, Try Signing Up!",
+  InvalidPassword: "Invalid Password, Try Again Later!",
 };
 
 module.exports = ErrorMsgs;
