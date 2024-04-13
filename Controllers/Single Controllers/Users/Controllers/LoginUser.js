@@ -34,13 +34,11 @@ const loginUser = async (req, res) => {
         errorInfo: "password",
       });
 
-      res
-        .status(200)
-        .json({
-          msg: "User Login Successful",
-          dbPasswordHash,
-          errorComparisonMsg: err,
-        });
+      res.status(200).json({
+        msg: "User Login Successful",
+        dbPasswordHash,
+        errorComparisonMsg: err,
+      });
     });
   } catch (error) {
     console.error("Error While Logging In:", error);
