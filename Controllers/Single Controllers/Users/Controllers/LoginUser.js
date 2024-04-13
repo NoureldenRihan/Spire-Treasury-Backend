@@ -29,6 +29,7 @@ const loginUser = async (req, res) => {
       // 2) Return Hashed Password for Client Side Comparison
       const dbPasswordHash = user.password;
 
+      // Error msg to show in case Hashed Password Comparison Fails
       const err = serverFunctions.ErrorClassifier({
         errorCode: "SP404",
         errorInfo: "password",

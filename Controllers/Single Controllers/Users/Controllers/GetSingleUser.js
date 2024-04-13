@@ -5,8 +5,6 @@ const Models = require("../../../../Schemas/Models");
 // 1) Check if user email exists & matches the request
 // 2) Return User Data
 
-//TODO Fix err msg for GetSingleUser.js & LoginUser.js
-
 const getSingleUser = async (req, res) => {
   try {
     console.log("User Login Started...");
@@ -31,7 +29,6 @@ const getSingleUser = async (req, res) => {
       res.status(200).json({
         msg: "User Found!",
         user,
-        // errorComparisonMsg: err,
       });
     });
   } catch (error) {
