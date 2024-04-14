@@ -24,11 +24,18 @@ const getSingleUser = async (req, res) => {
         return;
       }
 
-      console.log(user);
+      // Stringifying and reParsing User Data to turn it into a object instead of a mongoDB Document
+      let userData = JSON.stringify(user);
+      userData = JSON.parse(userData);
+
+      // Destructing password away from the secure user data for client side response
+      const { password, ...secureUserData } = userData;
+
+      console.log(secureUserData);
 
       res.status(200).json({
         msg: "User Found!",
-        user,
+        secureUserData,
       });
     });
   } catch (error) {
