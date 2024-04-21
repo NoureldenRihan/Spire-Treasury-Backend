@@ -3,6 +3,6 @@ const router = express.Router();
 
 const Controllers = require("../../Controllers/Controllers");
 
-router.post("/", Controllers.BalanceControllers.CreateBalance);
+router.post("/open", Controllers.BalanceControllers.CreateBalance);
 
 module.exports = router;

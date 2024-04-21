@@ -30,7 +30,7 @@ const CreateBalance = async (req, res) => {
       // 3) Create Balance and Update User
 
       await Models.UserModel.find({
-        accountNumber: req.body.AccNum,
+        accountNumber: req.body.accountNumber,
       }).then((user) => {
         let currentUser = user[0];
 
