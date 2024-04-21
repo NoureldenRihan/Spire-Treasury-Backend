@@ -84,7 +84,7 @@ const createTransaction = async (req, res) => {
         let currentUser = user[0];
         let currentAmount;
 
-        currentUser.balance.forEach((balance) => {
+        currentUser.balances.forEach((balance) => {
           if (balance.balanceID === transactionData.fromBalanceID) {
             currentAmount = balance.amount;
             balance.amount -= transactionData.total;
@@ -113,7 +113,7 @@ const createTransaction = async (req, res) => {
         let currentUser = user[0];
         let currentAmount;
 
-        currentUser.balance.forEach((balance) => {
+        currentUser.balances.forEach((balance) => {
           if (balance.balanceID === transactionData.toBalanceID) {
             currentAmount = balance.amount;
             balance.amount += transactionData.total;
@@ -170,7 +170,7 @@ const createTransaction = async (req, res) => {
           }
 
           if (spireBalanceID !== undefined) {
-            currentUser.balance.forEach((balance) => {
+            currentUser.balances.forEach((balance) => {
               if (balance.balanceID === spireBalanceID) {
                 currentAmount = balance.amount;
                 balance.amount += transactionData.fees;

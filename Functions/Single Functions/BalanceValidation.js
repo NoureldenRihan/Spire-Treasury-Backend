@@ -38,7 +38,7 @@ async function BalanceValidation(balanceData) {
 
     let alreadyHasBalance = false;
 
-    user.balance.forEach((balance) => {
+    user.balances.forEach((balance) => {
       if (balance.balanceID === balanceData.balanceID) {
         alreadyHasBalance = true;
       }

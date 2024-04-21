@@ -34,7 +34,7 @@ const CreateBalance = async (req, res) => {
       }).then((user) => {
         let currentUser = user[0];
 
-        currentUser.balance.unshift(balanceData);
+        currentUser.balances.unshift(balanceData);
 
         currentUser
           .save()

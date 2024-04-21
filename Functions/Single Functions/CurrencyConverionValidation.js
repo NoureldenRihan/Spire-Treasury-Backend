@@ -48,7 +48,7 @@ async function CurrencyConverionValidation(currencyConversionData) {
     let fromBalanceAvailable = false;
     let toBalanceAvailable = false;
 
-    user.balance.forEach((balance) => {
+    user.balances.forEach((balance) => {
       if (balance.balanceID === currencyConversionData.fromBalanceID) {
         fromBalanceAvailable = true;
       } else if (balance.balanceID === currencyConversionData.toBalanceID) {
@@ -82,7 +82,7 @@ async function CurrencyConverionValidation(currencyConversionData) {
 
     let AvailableBalance = false;
 
-    user.balance.forEach((balance) => {
+    user.balances.forEach((balance) => {
       if (balance.type === currencyConversionData.fromTier) {
         if (balance.amount >= currencyConversionData.amount) {
           AvailableBalance = true;

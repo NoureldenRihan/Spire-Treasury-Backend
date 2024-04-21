@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema(
       required: [true, "Please Enter an Email"],
     },
     transactions: [TransactionSchema],
-    balance: [BalanceSchema],
+    balances: [BalanceSchema],
   },
   { timestamps: true }
 );

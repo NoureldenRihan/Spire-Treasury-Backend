@@ -30,7 +30,7 @@ const ConvertCurreny = async (req, res) => {
           currencyConversionData.amount *
           CurrencyConversionRates[conversionCode];
 
-        currentUser.balance.forEach((balance) => {
+        currentUser.balances.forEach((balance) => {
           if (balance.type === req.body.fromTier) {
             balance.amount -= currencyConversionData.amount;
           } else if (balance.type === req.body.toTier) {

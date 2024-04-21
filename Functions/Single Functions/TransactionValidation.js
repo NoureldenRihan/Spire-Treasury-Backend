@@ -81,7 +81,7 @@ async function TransactionValidation(transactionData) {
 
     let hasEnoughFunds = false;
 
-    payingUser.balance.forEach((balance) => {
+    payingUser.balances.forEach((balance) => {
       if (balance.balanceID === transactionData.fromBalanceID) {
         if (balance.amount >= transactionData.total) {
           hasEnoughFunds = true;
